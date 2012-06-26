@@ -1,3 +1,5 @@
 profiles:
   development:
-
+  staging:
+  production:
+	  

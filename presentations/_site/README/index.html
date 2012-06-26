@@ -1,0 +1,259 @@
+<h1>reveal.js</h1>
+
+<p>A CSS 3D slideshow tool for quickly creating good looking HTML presentations. Doesn't <em>rely</em> on any external libraries but <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a> is included by default for code highlighting.</p>
+
+<p>Note that this requires a browser with support for CSS 3D transforms and <code>classList</code>. If CSS 3D support is not detected, the presentation will degrade to less exciting 2D transitions. A <a href="http://purl.eligrey.com/github/classList.js/blob/master/classList.js">classList polyfill</a> is incuded to make this work in &lt; iOS 5, &lt; Safari 5.1 and IE.</p>
+
+<p>Curious about how it looks in action? <a href="http://lab.hakim.se/reveal-js/">Check out the demo page</a>.</p>
+
+<h2>Usage</h2>
+
+<h3>Markup</h3>
+
+<p>Markup heirarchy needs to be <code>&lt;div id="reveal"&gt; &lt;div class="slides"&gt; &lt;section&gt;</code> where the <code>&lt;section&gt;</code> represents one slide and can be repeated indefinitely. If you place multiple <code>&lt;section&gt;</code>'s inside of another <code>&lt;section&gt;</code> they will be shown as vertical slides. For example:</p>
+
+<p>```html</p>
+
+<div id="reveal">
+    <div class="slides"> 
+        <section>Single Horizontal Slide</section>
+        <section>
+            <section>Vertical Slide 1</section>
+            <section>Vertical Slide 2</section>
+        </section>
+    </div>
+</div>
+
+
+<p>```</p>
+
+<h3>Configuration</h3>
+
+<p>At the end of your page, after <code>&lt;script src="js/reveal.js"&gt;&lt;/script&gt;</code>, you need to initialize reveal by running the following code. Note that all config values are optional.</p>
+
+<p>```javascript
+Reveal.initialize({</p>
+
+<pre><code>// Display controls in the bottom right corner
+controls: true,
+
+// Display a presentation progress bar
+progress: true,
+
+// If true; each slide will be pushed to the browser history
+history: true,
+
+// Loops the presentation, defaults to false
+loop: false,
+
+// Flags if mouse wheel navigation should be enabled
+mouseWheel: true,
+
+// Apply a 3D roll to links on hover
+rollingLinks: true,
+
+// UI style
+theme: 'default', // default/neon
+
+// Transition style
+transition: 'default' // default/cube/page/concave/linear(2d)
+</code></pre>
+
+<p>});
+```</p>
+
+<h3>API</h3>
+
+<p>The Reveal class provides a minimal JavaScript API for controlling its navigation:</p>
+
+<ul>
+<li>Reveal.navigateTo( indexh, indexv );</li>
+<li>Reveal.navigateLeft();</li>
+<li>Reveal.navigateRight();</li>
+<li>Reveal.navigateUp();</li>
+<li>Reveal.navigateDown();</li>
+<li>Reveal.toggleOverview();</li>
+</ul>
+
+
+<h3>States</h3>
+
+<p>If you set <code>data-state="somestate"</code> on a slide <code>&lt;section&gt;</code>, "somestate" will be applied as a class on the document element when that slide is opened. This allows you to apply broad style changes to the page based on the active slide.</p>
+
+<p>Furthermore you can also listen to these changes in state via JavaScript:</p>
+
+<p>```javascript
+Reveal.addEventListener( 'somestate', function() {</p>
+
+<pre><code>// TODO: Sprinkle magic
+</code></pre>
+
+<p>}, false );
+```</p>
+
+<h3>Slide change event</h3>
+
+<p>An 'slidechanged' event is fired each time the slide is changed (regardless of state). The event object holds the index values of the current slide as well as a reference to the previous and current slide HTML nodes.</p>
+
+<p>```javascript
+Reveal.addEventListener( 'slidechanged', function( event ) {</p>
+
+<pre><code>// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+</code></pre>
+
+<p>} );
+```</p>
+
+<h3>Fragment events</h3>
+
+<p>When a slide fragment is either shown or hidden reveal.js will dispatch an event.</p>
+
+<p>```javascript
+Reveal.addEventListener( 'fragmentshown', function( event ) {</p>
+
+<pre><code>// event.fragment = the fragment DOM element
+</code></pre>
+
+<p>} );
+Reveal.addEventListener( 'fragmenthidden', function( event ) {</p>
+
+<pre><code>// event.fragment = the fragment DOM element
+</code></pre>
+
+<p>} );
+```</p>
+
+<h2>Examples</h2>
+
+<ul>
+<li>http://lab.hakim.se/reveal-js/ (original)</li>
+<li>http://www.ideapolisagency.com/ by <a href="http://twitter.com/achrafkassioui">@achrafkassioui</a></li>
+<li>http://lucienfrelin.com/ by <a href="http://twitter.com/lucienfrelin">@lucienfrelin</a></li>
+<li>http://creatorrr.github.com/ThePoet/</li>
+<li>http://moduscreate.com/ by <a href="https://twitter.com/ModusCreate">@ModusCreate</a></li>
+<li>http://idea.diwank.name/ by <a href="http://diwank.name/">Diwank Singh</a></li>
+<li><a href="http://dl.dropbox.com/u/39519/talks/jquk-tooling%2Bappstack/index.html">Webapp Development Stack &amp; Tooling</a> by <a href="https://github.com/paulirish">Paul Irish</a></li>
+<li><a href="http://concurrencykit.org/presentations/lockfree_introduction/">Lock-free algorithms</a> by Samy Al Bahra</li>
+<li><a href="http://www.thecssninja.com/talks/not_your_average_dnd/">Not Your Average Drag and Drop</a> by <a href="https://github.com/ryanseddon">Ryan Seddon</a></li>
+<li><a href="http://spinscale.github.com/elasticsearch/2012-03-jugm.html">Elasticsearch</a> by <a href="http://twitter.com/spinscale">@spinscale</a></li>
+<li><a href="http://dl.dropbox.com/u/39519/talks/jsconf-tools/index.html">JavaScript Tooling</a> by <a href="https://github.com/paulirish">Paul Irish</a></li>
+<li><a href="http://vhardy.github.com/presentations/html5-community-meet-up-2012/">The Graphical Web: Fostering Creativity</a> by <a href="https://github.com/vhardy">Vincent Hardy</a></li>
+<li><a href="http://westcoastlogic.com/slides/debug-mobile/">Mobile Web Programming is a Bloody Mess</a> by <a href="https://github.com/brianleroux">Brian LeRoux</a></li>
+<li><a href="http://www.philipbjorge.com/bioinformatics-presentation/">Bio Database Access and Sequence Alignment</a> by <a href="https://github.com/philipbjorge">Philip Bjorge</a></li>
+<li><a href="http://prez.mahemoff.com/state-native/">Web vs Native</a> by <a href="https://github.com/mahemoff">Michael Mahemoff</a></li>
+<li><a href="http://trodrigues.net/presentations/buster-ci/">Continuously Integrated JS Development</a> by <a href="https://github.com/trodrigues">Tiago Rodrigues</a></li>
+<li><a href="http://dl.dropbox.com/u/409429/presentations/toster-2012/index.html">To be Future Friendly is to be Device Agnostic</a> by <a href="https://github.com/joemccann">Joe McCann</a></li>
+<li><a href="http://dl.dropbox.com/u/39519/talks/fluent/index.html">The Web Development Workflow of 2013</a> by <a href="https://github.com/paulirish">Paul Irish</a></li>
+<li><a href="http://alexw.me/playground/slideshows/w3c_netcraft/">How To Cope With Graphical Challenges Using Latest Web Technologies</a> by <a href="https://github.com/altryne">Alex Wolkov</a></li>
+<li><a href="http://andymatthews.net/downloads/presentations/going-deeper-with-jquery-mobile/">Going Deeper with jQuery Mobile</a> by <a href="https://github.com/commadelimited">Andy Matthews</a></li>
+<li><a href="http://studionord.org">Studio Nord</a></li>
+</ul>
+
+
+<p><a href="http://hakim.se/about/contact">Send me a link</a> if you used reveal.js for a project or presentation.</p>
+
+<h2>History</h2>
+
+<h4>1.4 (master/beta)</h4>
+
+<ul>
+<li>Main #reveal container is now selected via a class instead of ID</li>
+<li>API methods for adding or removing all event listeners</li>
+<li>The 'slidechange' event now includes currentSlide and previousSlide</li>
+<li>Fixed bug where 'slidechange' was firing twice when history was enabled</li>
+</ul>
+
+
+<h4>1.3</h4>
+
+<ul>
+<li>Revised keyboard shortcuts, including ESC for overview, N for next, P for previous. Thanks <a href="https://github.com/mahemoff">mahemoff</a></li>
+<li>Added support for looped presentations via config</li>
+<li>Fixed IE9 fallback</li>
+<li>Added event binding methods (Reveal.addEventListener, Reveal.removeEventListener)</li>
+<li>Added 'slidechanged' event</li>
+<li>Added print styles. Thanks <a href="https://github.com/skypanther">skypanther</a></li>
+<li>The address bar now hides automatically on mobile browsers</li>
+<li>Space and return keys can be used to exit the overview mode</li>
+<li>Events for fragment states ('fragmentshown'/'fragmenthidden')</li>
+<li>Support for swipe navigation on touch devices. Thanks <a href="https://github.com/akiersky">akiersky</a></li>
+<li>Support for pinch to overview on touch devices</li>
+</ul>
+
+
+<h4>1.2</h4>
+
+<ul>
+<li>Big changes to DOM structure:
+
+<ul>
+<li>Previous #main wrapper is now called #reveal</li>
+<li>Slides were moved one level deeper, into #reveal .slides</li>
+<li>Controls and progress bar were moved into #reveal</li>
+</ul>
+</li>
+<li>CSS is now much more explicit, rooted at #reveal, to prevent conflicts</li>
+<li>Config option for disabling updates to URL, defaults to true</li>
+<li>Anchors with image children no longer rotate in 3D on hover</li>
+<li>Support for mouse wheel navigation (<a href="https://github.com/naugtur">naugtur</a>)</li>
+<li>Delayed updates to URL hash to work around a bug in Chrome</li>
+<li>Included a classList polyfill for IE9</li>
+<li>Support for wireless presenter keys</li>
+<li>States can now be applied as classes on the document element by adding data-state on a slide</li>
+</ul>
+
+
+<h4>1.1</h4>
+
+<ul>
+<li>Added an optional presentation progress bar</li>
+<li>Images wrapped in anchors no longer unexpectedly flip in 3D</li>
+<li>Slides that contain other slides are given the 'stack' class</li>
+<li>Added 'transition' option for specifying transition styles</li>
+<li>Added 'theme' option for specifying UI styles</li>
+<li>New transitions: 'box' &amp; 'page'</li>
+<li>New theme: 'neon'</li>
+</ul>
+
+
+<h4>1.0</h4>
+
+<ul>
+<li>New and improved style</li>
+<li>Added controls in bottom right which indicate where you can navigate</li>
+<li>Reveal views in iteratively by giving them the .fragment class</li>
+<li>Code sample syntax highlighting thanks to <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a></li>
+<li>Initialization options (toggling controls, toggling rolling links, transition theme)</li>
+</ul>
+
+
+<h4>0.3</h4>
+
+<ul>
+<li>Added licensing terms</li>
+<li>Fixed broken links on touch devices</li>
+</ul>
+
+
+<h4>0.2</h4>
+
+<ul>
+<li>Refactored code and added inline documentation</li>
+<li>Slides now have unique URL's</li>
+<li>A basic API to invoke navigation was added</li>
+</ul>
+
+
+<h4>0.1</h4>
+
+<ul>
+<li>First release</li>
+<li>Transitions and a white theme</li>
+</ul>
+
+
+<h2>License</h2>
+
+<p>MIT licensed</p>
+
+<p>Copyright (C) 2012 Hakim El Hattab, http://hakim.se</p>
